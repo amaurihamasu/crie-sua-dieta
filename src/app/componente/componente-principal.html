@@ -1,0 +1,231 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div id="pdfTable" #pdfTable>
+      <div class="row">
+        <div class="col-lg-3 col-md-6 col-sm-6">
+          <div class="card card-stats">
+            <div class="card-header card-header-warning card-header-icon">
+              <div class="card-icon">
+                <i class="material-icons">T</i>
+              </div>
+              <p class="card-category">Total em gramas</p>
+              <h3 class="card-title">{{totalEmGramas()}}
+                <small>(g)</small>
+              </h3>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <br>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6">
+          <div class="card card-stats">
+            <div class="card-header card-header-success card-header-icon">
+              <div class="card-icon">
+                <i class="material-icons">P</i>
+              </div>
+              <p class="card-category">Total proteina</p>
+              <h3 class="card-title">{{totalProteina()}}
+                <small>(g)</small>
+              </h3>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                Não pode ultrapassar o valor de: {{ totalProteinaGramasPorRefeicao | number: '1.0-0' }} g
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6">
+          <div class="card card-stats">
+            <div class="card-header card-header-danger card-header-icon">
+              <div class="card-icon">
+                <i class="material-icons">G</i>
+              </div>
+              <p class="card-category">Total gordura</p>
+              <h3 class="card-title">{{totalGordura()}}
+                <small>(g)</small>
+              </h3>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                Não pode ultrapassar o valor de: {{ totalGorduraGramasPorRefeicao | number: '1.0-0' }} g
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6">
+          <div class="card card-stats">
+            <div class="card-header card-header-info card-header-icon">
+              <div class="card-icon">
+                <i class="material-icons">C</i>
+              </div>
+              <p class="card-category">Total carboidrato</p>
+              <h3 class="card-title">{{totalCarboidrato()}}
+                <small>(g)</small>
+              </h3>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                Não pode ultrapassar o valor de: {{ totalCarboidratoGramasPorRefeicao | number: '1.0-0' }} g
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header card-header-danger">
+              <h4 class="card-title "> Itens selecionados </h4>
+              <p class="card-category"> Aqui você vai poder analisar suas escolhas !</p>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+
+                <div *ngIf="tabelaItensSelecionados.data.length === 0">Faça a seleção de qualquer alimento abaixo para
+                  ser
+                  exibido nesta lista</div>
+
+                <table mat-table [dataSource]="tabelaItensSelecionados" *ngIf="tabelaItensSelecionados.data.length > 0"
+                  class="w-100">
+
+                  <ng-container matColumnDef="quantidade">
+                    <th mat-header-cell *matHeaderCellDef> QUANTIDADE (g) </th>
+                    <td mat-cell *matCellDef="let alimento; let i = index">
+                      <button mat-icon-button color="primary" (click)="diminuirQuantidadeGramas(alimento)"
+                        [disabled]="alimento.quantidade === 0">
+                        <i class="fa fa-minus"></i>
+                      </button>
+                      <span>{{ alimento.quantidade }}</span>
+                      <button mat-icon-button color="primary" (click)="aumentarQuantidadeGramas(alimento);">
+                        <i class="fa fa-plus"></i>
+                      </button>
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="alimento">
+                    <th mat-header-cell *matHeaderCellDef> ALIMENTO </th>
+                    <td mat-cell *matCellDef="let alimento"> {{alimento.alimento}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="proteina">
+                    <th mat-header-cell *matHeaderCellDef> PROTEINA </th>
+                    <td mat-cell *matCellDef="let alimento; let i = index">
+                      {{alimento.proteinaEmGramas | number:'2.1-2'}} g
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="gordura">
+                    <th mat-header-cell *matHeaderCellDef> GORDURA </th>
+                    <td mat-cell *matCellDef="let alimento; let i = index">
+                      {{alimento.gorduraEmGramas | number:'2.1-2'}} g
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="carboidrato">
+                    <th mat-header-cell *matHeaderCellDef> CARBOIDRATO </th>
+                    <td mat-cell *matCellDef="let alimento; let i = index">
+                      {{alimento.carboidratoEmGramas | number:'2.1-2'}} g
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="manter">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let alimento">
+                      <button mat-icon-button color="primary"
+                        (click)="removerAlimentoListaSelecionados(alimento.posicao)">
+                        excluir
+                      </button>
+                    </td>
+                  </ng-container>
+                  <tr mat-header-row *matHeaderRowDef="colunasTabelaItensSelecionados; sticky: true">
+                  </tr>
+                  <tr mat-row *matRowDef="let row; columns: colunasTabelaItensSelecionados;" [ngClass]="row.categoria">
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row my-2">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <button class="btn w-100" (click)="downloadAsPDF()">Exportar para PDF</button>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <button class="btn w-100" (click)="recarregarPagina()">Calcular nova refeição</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-tabs card-header-danger">
+            <h4 class="card-title "> Escolha seu cardápio </h4>
+            <p class="card-category"> Escolha entre as opções abaixo e click duas vezes para selecionar !</p>
+            <div class="nav-tabs-navigation">
+              <div class="nav-tabs-wrapper">
+                <span class="nav-tabs-title">Filtros:</span>
+                <ul class="nav nav-tabs" data-tabs="tabs">
+                  <li class="nav-item">
+                    <a mat-button class="nav-link active" data-toggle="tab" (click)="aplicarFiltro('')">
+                      <span class="material-icons">
+                        search
+                      </span> Todos
+                      <div class="ripple-container"></div>
+                    </a>
+                  </li>
+                  <ng-template ngFor let-categoria [ngForOf]="categoriaAlimentos" let-i="index">
+                    <li class="nav-item">
+                      <a mat-button class="nav-link" data-toggle="tab" (click)="aplicarFiltro(categoria)">
+                        <span class="material-icons">
+                          search
+                        </span> {{ categoria }}
+                        <div class="ripple-container"></div>
+                      </a>
+                    </li>
+                  </ng-template>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive example-table-container">
+              <table mat-table [dataSource]="dataSource" class="table">
+
+                <ng-container matColumnDef="alimento">
+                  <th mat-header-cell *matHeaderCellDef> ALIMENTO </th>
+                  <td mat-cell *matCellDef="let alimento"> {{alimento.alimento}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="proteina">
+                  <th mat-header-cell *matHeaderCellDef> PROTEINA </th>
+                  <td mat-cell *matCellDef="let alimento"> {{alimento.proteinaEmGramas | number:'2.1-2'}} g</td>
+                </ng-container>
+
+                <ng-container matColumnDef="gordura">
+                  <th mat-header-cell *matHeaderCellDef> GORDURA </th>
+                  <td mat-cell *matCellDef="let alimento"> {{alimento.gorduraEmGramas| number:'2.1-2'}} g </td>
+                </ng-container>
+
+                <ng-container matColumnDef="carboidrato">
+                  <th mat-header-cell *matHeaderCellDef> CARBOIDRATO </th>
+                  <td mat-cell *matCellDef="let alimento"> {{alimento.carboidratoEmGramas| number:'2.1-2'}} g </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                <tr mat-row *matRowDef="let alimento; columns: displayedColumns;"
+                  [class.hidden]="itemJaSelecionado(alimento.posicao)"
+                  (dblclick)="addAlimentoListaSelecionados(alimento)">
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,162 @@
+/* .input-group>.input-group-prepend {
+  flex: 0 0 27%;
+}
+
+.input-group .input-group-text {
+  width: 100%;
+}
+
+.example-container {
+  height: 344px;
+  overflow: auto;
+}
+
+table {
+  width: 100%;
+}
+
+tr.mat-footer-row {
+  font-weight: bold;
+}
+
+.mat-table-sticky {
+  border-top: 1px solid #e0e0e0;
+}
+
+/* DAQUI PARA BAIXO ESTA OK */
+
+/* .asterisco-aviso-erro {
+  color: firebrick !important;
+  font-size: 30px;
+}
+
+.asterisco-aviso-erro-peq {
+  color: firebrick !important;
+  font-size: 14px;
+}
+
+.image-branco-esquerda {
+  font-size: 370px;
+  margin-left: 130px;
+  width: 370px;
+  text-align: center;
+}
+
+.image-branco-direta {
+  font-size: 370px;
+  margin-right: 130px;
+  width: 370px;
+  text-align: center;
+}
+
+.custom-control-input:checked~.custom-control-label::before {
+  background-color: darkblue;
+}  */
+
+.cereiais-derivados {
+  background-color: #e6ffcc;
+}
+
+.verduras-hortalicas-derivados {
+  background-color: #b1cc7a;
+}
+
+.frutas-derivados {
+  background-color: #998a3d;
+}
+
+.gorduras-oleos {
+  background-color: #6e422c;
+}
+
+.pescados-frutosdomar {
+  background-color: #3b2327;
+}
+
+.carnes-derivados {
+  background-color: #190c1f;
+}
+
+.leite-derivados {
+  background-color: #233b3b;
+}
+
+.bebidas {
+  background-color: #2c6e49;
+}
+
+.ovos-derivados {
+  background-color: #4d993d;
+}
+
+.produtos-acucarados {
+  background-color: #294766;
+}
+
+.miscelaneas {
+  background-color: #456299;
+}
+
+.alimentos-industrializados {
+  background-color: #a3a3cc;
+}
+
+.alimentos-preparados {
+  background-color: #6e2c2c;
+}
+
+.leguminosas-derivados {
+  background-color: #995c3d;
+}
+
+.nozes-sementes {
+  background-color: #ccb17a;
+}
+
+.hidden {
+  display: none;
+}
+
+.number {
+  margin: 100px;
+}
+
+.minus, .plus {
+  width: 20px;
+  height: 20px;
+  background: #f2f2f2;
+  border-radius: 4px;
+  padding: 8px 5px 8px 5px;
+  border: 1px solid #ddd;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.example-radio-group {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+}
+
+.example-radio-button {
+  margin-left: 16px;
+}
+
+.teste {
+  height: 34px;
+  width: 100px;
+  text-align: center;
+  font-size: 26px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.example-table-container {
+  position: relative;
+  min-height: 200px;
+  max-height: 400px;
+  overflow: auto;
+}

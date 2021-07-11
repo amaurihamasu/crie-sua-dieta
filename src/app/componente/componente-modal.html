@@ -1,0 +1,82 @@
+<h2 mat-dialog-title>Calorias e Macronutrientes</h2>
+<mat-dialog-content class="mat-typography">
+  <h3>Informe os dados</h3>
+  <div class="row">
+    <div class="col-md-3">
+      <mat-form-field appearance="legacy">
+        <input matInput type="number" [(ngModel)]="totalCaloriasNoDia">
+        <span matSuffix>kcal</span>
+        <mat-hint align="end">Quantidade de calorias no dia</mat-hint>
+      </mat-form-field>
+    </div>
+    <div class="col-md-3">
+      <mat-form-field appearance="legacy">
+        <input matInput type="number" min="0" max="100" [(ngModel)]="porcentagemProteinaPorRefeicao">
+        <span matSuffix>%</span>
+        <mat-hint align="end">Porcentagem de proteína</mat-hint>
+      </mat-form-field>
+    </div>
+    <div class="col-md-3">
+      <mat-form-field appearance="legacy">
+        <input matInput type="number" min="0" max="100" [(ngModel)]="porcentagemGorduraPorRefeicao">
+        <span matSuffix>%</span>
+        <mat-hint align="end">Porcentagem de gordura</mat-hint>
+      </mat-form-field>
+    </div>
+    <div class="col-md-3">
+      <mat-form-field appearance="legacy">
+        <input matInput type="number" min="0" max="100" [(ngModel)]="porcentagemCarboidratoPorRefeicao">
+        <span matSuffix>%</span>
+        <mat-hint align="end">Porcentagem de carboidrato</mat-hint>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row mt-5">
+    <div class="col-md-12">
+      <label id="example-radio-group-label">Refeições: </label>
+      <mat-radio-group aria-labelledby="example-radio-group-label" [(ngModel)]="quantidadeRefeicoesSelecionada">
+        <mat-radio-button class="example-radio-button" *ngFor="let refeicao of refeicoes" [value]="refeicao.valor" [checked]="quantidadeRefeicoesSelecionada === refeicao.valor"> 
+          {{refeicao.descricao}}
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+  </div>
+  <mat-divider class="my-2"></mat-divider>
+  <h3>Resultado</h3>
+  <p>
+    Para seu total de calorias no dia <strong>({{totalCaloriasNoDia}} kcal)</strong> divido pela quantida de refeições escolhidas <strong>({{quantidadeRefeicoesSelecionada}})</strong>
+    dá um total de <strong>({{obterTotalCaloriasPorRefeicao() | number: '1.0-0'}} kcal)</strong> por refeição.
+  </p>
+  <p>
+    Com esses <strong>({{obterTotalCaloriasPorRefeicao() | number: '1.0-0'}} kcal)</strong> por refeição, de acordo com as porcentagens informadas temos:
+  </p>
+  <ul>
+    <li>
+      <strong>({{calcularValorCaloriasPorPorcentagemProteina() | number: '1.0-0'}} kcal)</strong> ou <strong>({{converterValorCaloriaProteinaEmGramas() | number: '1.0-0'}} g)</strong> de proteina por refeição ({{porcentagemProteinaPorRefeicao | number: '1.0-0'}}% de {{obterTotalCaloriasPorRefeicao() | number: '1.0-0'}} kcal).
+      <ul>
+        <li>
+          Lembrando que cada grama de proteina tem 4 calorias;
+        </li>
+      </ul>
+    </li>
+    <li>
+      <strong>({{calcularValorCaloriasPorPorcentagemGordura() | number: '1.0-0'}} kcal)</strong> ou <strong>({{converterValorCaloriaGorduraEmGramas() | number: '1.0-0'}} g)</strong> de lipideo por refeição ({{porcentagemGorduraPorRefeicao | number: '1.0-0'}}% de {{obterTotalCaloriasPorRefeicao() | number: '1.0-0'}} kcal).
+      <ul>
+        <li>
+          Lembrando que cada grama de gordura tem 9 calorias;
+        </li>
+      </ul>
+    </li>
+    <li>
+      <strong>({{calcularValorCaloriasPorPorcentagemCarboidrato() | number: '1.0-0'}} kcal)</strong> ou <strong>({{converterValorCaloriaCarboidratoEmGramas() | number: '1.0-0'}} g)</strong> de carboidrato por refeição ({{porcentagemCarboidratoPorRefeicao | number: '1.0-0'}}% de {{obterTotalCaloriasPorRefeicao() | number: '1.0-0'}} kcal).
+      <ul>
+        <li>
+          Lembrando que cada grama de carboidrato tem 4 calorias;
+        </li>
+      </ul>
+    </li>
+  </ul>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]="enviarInformacoes()" cdkFocusInitial>OK ! Tudo informado</button>
+</mat-dialog-actions>
